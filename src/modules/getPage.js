@@ -2,7 +2,9 @@ const axios = require('axios');
 
 function getPage(pageUrl) {
     return new Promise(function(resolve, reject) {
-        axios.get(pageUrl)
+        axios.get(pageUrl, {
+            timeout: 2500
+        })
             .then(function (response) {
                 resolve(response.data);
             })
