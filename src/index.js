@@ -43,6 +43,10 @@ function main(pageUrl, options = {}) {
 
             const httpsUrl = makeHttps(pageUrl);
             return main(httpsUrl, options);
+        })
+        .catch(e => {
+            e.title = title;
+            throw e;
         });
 }
 
