@@ -8,7 +8,7 @@ function hrefIsIcon(href) {
 function getDomainUrl(someUrl) {
     const parsedUrl = url.parse(someUrl);
     parsedUrl.pathname = null;
-    return parsedUrl.format()
+    return parsedUrl.format();
 }
 
 function linkTagLinks($) {
@@ -35,11 +35,10 @@ function metaTagLinks($) {
         links.push(graphImageUrl);
     });
 
-    return links
+    return links;
 }
 
-function getIconLinks(rootUrl, dom) {
-    var $ = cheerio.load(dom);
+function getIconLinks(rootUrl, $) {
     let iconLinks = [];
 
     iconLinks = iconLinks.concat(linkTagLinks($));

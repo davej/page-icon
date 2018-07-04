@@ -1,6 +1,7 @@
 import 'source-map-support/register';
 
 const url = require('url');
+const cheerio = require('cheerio');
 const getPage = require('./modules/getPage');
 const getIconLinks = require('./modules/getIconLinks');
 const downloadIcons = require('./modules/download/downloadIcons');
@@ -16,21 +17,26 @@ function makeHttps(pageUrl) {
     return url.format(parsed);
 }
 
-function main(pageUrl, options={}) {
-
+function main(pageUrl, options = {}) {
     const bestWithPref = function(icons) {
-          return findBestIcon(icons, options.ext);
+        return findBestIcon(icons, options.ext);
     };
 
+    let title = '';
     return getPage(pageUrl)
-        .then(function (dom) {
-            return getIconLinks(pageUrl, dom);
+        .then(dom => {
+            const $ = cheerio.load(dom);
+            title = $('title').text();
+            return getIconLinks(pageUrl, $);
         })
         .then(downloadIcons)
         .then(bestWithPref)
         .then(result => {
             if (result || isHttps(pageUrl)) {
-                return result;
+                return {
+                    ...result,
+                    title
+                };
             }
 
             const httpsUrl = makeHttps(pageUrl);
