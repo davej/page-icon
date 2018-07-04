@@ -33,10 +33,9 @@ function main(pageUrl, options = {}) {
         .then(bestWithPref)
         .then(result => {
             if (result || isHttps(pageUrl)) {
-                return {
-                    ...result,
-                    title
-                };
+                return Object.assign({}, result, {
+                    title: title
+                });
             }
 
             const httpsUrl = makeHttps(pageUrl);
