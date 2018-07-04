@@ -26,7 +26,9 @@ function main(pageUrl, options = {}) {
     return getPage(pageUrl)
         .then(dom => {
             const $ = cheerio.load(dom);
-            title = $('title').text();
+            title = $('title')
+                .first()
+                .text();
             return getIconLinks(pageUrl, $);
         })
         .then(downloadIcons)
