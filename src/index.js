@@ -28,7 +28,8 @@ function main(pageUrl, options = {}) {
             const $ = cheerio.load(dom);
             title = $('title')
                 .first()
-                .text();
+                .text()
+                .trim();
             return getIconLinks(pageUrl, $);
         })
         .then(downloadIcons)
