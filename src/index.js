@@ -23,9 +23,15 @@ function main(pageUrl, options = {}) {
     };
 
     let title = '';
+
+    let html;
     return getPage(pageUrl)
-        .then(dom => {
+        .then(([responseUrl, dom]) => {
             const $ = cheerio.load(dom);
+            if (!$('head base')) {
+                $('head').prepend(`<base href="${responseUrl}">`);
+            }
+            html = $.html;
             title = $('title')
                 .first()
                 .text()
@@ -37,7 +43,8 @@ function main(pageUrl, options = {}) {
         .then(result => {
             if (result || isHttps(pageUrl)) {
                 return Object.assign({}, result, {
-                    title: title
+                    title: title,
+                    html: $.html()
                 });
             }
 
