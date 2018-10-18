@@ -4,7 +4,7 @@ function getPage(pageUrl) {
     return new Promise(function(resolve, reject) {
         axios
             .get(pageUrl, {
-                timeout: 2500
+                timeout: 3500
             })
             .then(function(response) {
                 resolve([response.request.res.responseUrl, response.data]);
