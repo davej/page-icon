@@ -31,7 +31,7 @@ function main(pageUrl, options = {}) {
             if (!$('head base')) {
                 $('head').prepend(`<base href="${responseUrl}">`);
             }
-            html = $.html;
+            html = $.html();
             title = $('title')
                 .first()
                 .text()
@@ -44,7 +44,7 @@ function main(pageUrl, options = {}) {
             if (result || isHttps(pageUrl)) {
                 return Object.assign({}, result, {
                     title: title,
-                    html: $.html()
+                    html
                 });
             }
 
