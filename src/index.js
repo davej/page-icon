@@ -28,7 +28,8 @@ function main(pageUrl, options = {}) {
     return getPage(pageUrl)
         .then(([responseUrl, dom]) => {
             const $ = cheerio.load(dom);
-            if (!$('head base')) {
+            console.log($('head base').length);
+            if ($('head base').length === 0) {
                 $('head').prepend(`<base href="${responseUrl}">`);
             }
             html = $.html();
