@@ -14,7 +14,7 @@
   "author": "Goh Jia Hao",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.9.1",
+    "axios": "^0.18.0",
     "cheerio": "^0.20.0",
     "file-type": "^3.8.0",
     "image-size": "^0.5.0",
