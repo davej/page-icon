@@ -1,4 +1,9 @@
 const pageIcon = require('../');
 (async () => {
-    await pageIcon('https://facebook.com/');
+    try {
+        const pi = await pageIcon('https://messenger.com/');
+        console.dir({ title: pi.title, source: pi.source });
+    } catch (err) {
+        console.log(err);
+    }
 })();
