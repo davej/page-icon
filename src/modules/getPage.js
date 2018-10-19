@@ -4,7 +4,7 @@ function getPage(pageUrl) {
     return new Promise(function(resolve, reject) {
         axios
             .get(pageUrl, {
-                timeout: 20500
+                timeout: 5000
             })
             .then(function(response) {
                 const doesBlockFrame = 'x-frame-options' in response.headers;
