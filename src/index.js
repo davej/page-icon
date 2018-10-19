@@ -50,7 +50,7 @@ function main(pageUrl, options = {}) {
                 return Object.assign({}, result, {
                     title: title,
                     isFrameBlocked,
-                    html: isFrameBlocked ? undefined : html
+                    html: isFrameBlocked ? html : undefined
                 });
             }
 
