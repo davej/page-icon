@@ -4,10 +4,16 @@ function getPage(pageUrl) {
     return new Promise(function(resolve, reject) {
         axios
             .get(pageUrl, {
-                timeout: 3500
+                timeout: 20500
             })
             .then(function(response) {
-                resolve([response.request.res.responseUrl, response.data]);
+                const doesBlockFrame = 'x-frame-options' in response.headers;
+
+                resolve({
+                    responseUrl: response.request.res.responseUrl,
+                    dom: response.data,
+                    doesBlockFrame
+                });
             })
             .catch(function(response) {
                 reject(response);

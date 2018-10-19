@@ -25,13 +25,18 @@ function main(pageUrl, options = {}) {
     let title = '';
 
     let html;
+    let isFrameBlocked = false;
     return getPage(pageUrl)
-        .then(([responseUrl, dom]) => {
+        .then(({ responseUrl, dom, doesBlockFrame }) => {
+            isFrameBlocked = doesBlockFrame;
+
             const $ = cheerio.load(dom);
-            if ($('head base').length === 0) {
-                $('head').prepend(`<base href="${responseUrl}">`);
+            if (isFrameBlocked) {
+                if ($('head base').length === 0) {
+                    $('head').prepend(`<base href="${responseUrl}">`);
+                }
+                html = $.html();
             }
-            html = $.html();
             title = $('title')
                 .first()
                 .text()
@@ -44,7 +49,8 @@ function main(pageUrl, options = {}) {
             if (result || isHttps(pageUrl)) {
                 return Object.assign({}, result, {
                     title: title,
-                    html
+                    isFrameBlocked,
+                    html: isFrameBlocked ? undefined : html
                 });
             }
 
