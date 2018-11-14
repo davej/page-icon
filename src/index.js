@@ -34,6 +34,10 @@ function main(pageUrl, options = {}) {
             if (isFrameBlocked) {
                 if ($('head base').length === 0) {
                     $('head').prepend(`<base href="${responseUrl}">`);
+                } else {
+                    const oldBaseUrl = $('base').attr('href');
+                    const newBaseUrl = url.resolve(responseUrl, oldBaseUrl)
+                    $('base').attr('href', newBaseUrl);
                 }
                 html = $.html();
             }
