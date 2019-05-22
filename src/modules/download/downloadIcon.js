@@ -27,7 +27,8 @@ function downloadIcon(iconUrl) {
                     resolve();
                     return;
                 }
-                reject(error);
+                // Let's always resolve, even if the error is a 403 ro something like that
+                resolve();
             });
     });
 
