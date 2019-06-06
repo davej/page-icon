@@ -53,7 +53,8 @@ function main(pageUrl, options = {}) {
             return Object.assign({}, result, {
                 title: title,
                 isFrameBlocked,
-                html: isFrameBlocked ? html : undefined
+                html: isFrameBlocked ? html : undefined,
+                isHttps: isHttps(pageUrl)
             });
         })
         .catch(e => {
