@@ -36,7 +36,7 @@ function main(pageUrl, options = {}) {
                     $('head').prepend(`<base href="${responseUrl}">`);
                 } else {
                     const oldBaseUrl = $('base').attr('href');
-                    const newBaseUrl = url.resolve(responseUrl, oldBaseUrl)
+                    const newBaseUrl = url.resolve(responseUrl, oldBaseUrl);
                     $('base').attr('href', newBaseUrl);
                 }
                 html = $.html();
@@ -50,16 +50,11 @@ function main(pageUrl, options = {}) {
         .then(downloadIcons)
         .then(bestWithPref)
         .then(result => {
-            if (result || isHttps(pageUrl)) {
-                return Object.assign({}, result, {
-                    title: title,
-                    isFrameBlocked,
-                    html: isFrameBlocked ? html : undefined
-                });
-            }
-
-            const httpsUrl = makeHttps(pageUrl);
-            return main(httpsUrl, options);
+            return Object.assign({}, result, {
+                title: title,
+                isFrameBlocked,
+                html: isFrameBlocked ? html : undefined
+            });
         })
         .catch(e => {
             e.title = title;
